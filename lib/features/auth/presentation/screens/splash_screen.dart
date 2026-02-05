@@ -1,14 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:quick_buy/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:quick_buy/features/auth/presentation/widgets/app_logo.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  static const String name = "/";
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    _navigateToNextScreen();
+    super.initState();
+  }
+
+  Future<void> _navigateToNextScreen() async {
+    await Future.delayed(Duration(seconds: 3));
+    if (mounted) {
+      Navigator.pushReplacementNamed(context, SignUpScreen.name);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.all(24),
         child: Column(
           children: [
             Spacer(),
