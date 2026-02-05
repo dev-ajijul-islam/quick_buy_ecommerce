@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quick_buy/app/extensions/localization_extension.dart';
 import 'package:quick_buy/app/providers/languages_provider.dart';
-import 'package:quick_buy/l10n/app_localizations.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -11,9 +11,7 @@ class SplashScreen extends StatelessWidget {
     final LanguagesProvider languagesProvider = context
         .read<LanguagesProvider>();
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.helloWorld.toString()),
-      ),
+      appBar: AppBar(title: Text(context.localization.helloWorld)),
       body: Center(
         child: DropdownMenu(
           initialSelection: languagesProvider.currentLanguage,
