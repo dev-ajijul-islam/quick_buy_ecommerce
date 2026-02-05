@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quick_buy/l10n/app_localizations.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -6,7 +7,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Hello"),),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.helloWorld.toString()),),
     );
   }
 }
