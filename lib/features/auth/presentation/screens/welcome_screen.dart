@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quick_buy/app/extensions/utils_extension.dart';
+import 'package:quick_buy/features/auth/presentation/screens/otp_code_screen.dart';
 import 'package:quick_buy/features/auth/presentation/widgets/app_logo.dart';
 import 'package:quick_buy/features/shared/utils/presentation/validator.dart';
 
@@ -22,44 +23,52 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: .spaceBetween,
-            crossAxisAlignment: .center,
-            children: [
-              Form(
-                key: _formKey,
-                autovalidateMode: .onUserInteraction,
-                child: Column(
-                  spacing: 10,
-                  children: [
-                    SizedBox(height: 80),
-                    AppLogo(width: 80, height: 80),
-                    Text("Welcome Back", style: context.textTheme.titleLarge),
-                    Text(
-                      "Please enter your email",
-                      style: TextStyle(color: Colors.grey),
+          child: SingleChildScrollView(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height - 80,
+              child: Column(
+                mainAxisAlignment: .spaceBetween,
+                crossAxisAlignment: .center,
+                children: [
+                  Form(
+                    key: _formKey,
+                    autovalidateMode: .onUserInteraction,
+                    child: Column(
+                      spacing: 10,
+                      children: [
+                        SizedBox(height: 80),
+                        AppLogo(width: 80, height: 80),
+                        Text(
+                          "Welcome Back",
+                          style: context.textTheme.titleLarge,
+                        ),
+                        Text(
+                          "Please enter your email",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        SizedBox(height: 20),
+                        TextFormField(
+                          controller: _emailTEController,
+                          validator: (value) => Validator.validateEmail(
+                            value: value,
+                            message: "Email is required",
+                          ),
+                          decoration: InputDecoration(hintText: "Email"),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 20),
-                    TextFormField(
-                      controller: _emailTEController,
-                      validator: (value) => Validator.validateEmail(
-                        value: value,
-                        message: "Email is required",
-                      ),
-                      decoration: InputDecoration(hintText: "Email"),
+                  ),
+                  SizedBox(
+                    height: 50,
+                    width: .maxFinite,
+                    child: FilledButton(
+                      onPressed: _onTapNextButton,
+                      child: Text("Next"),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 50,
-                width: .maxFinite,
-                child: FilledButton(
-                  onPressed: _onTapNextButton,
-                  child: Text("Next"),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -67,7 +76,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   void _onTapNextButton() {
-    if (_formKey.currentState!.validate()) {}
+    if (_formKey.currentState!.validate()) {
+      Navigator.pushReplacementNamed(context, OtpCodeScreen.name);
+    }
   }
 
   @override
