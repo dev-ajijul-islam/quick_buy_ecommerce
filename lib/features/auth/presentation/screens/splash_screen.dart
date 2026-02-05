@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quick_buy/features/auth/presentation/screens/sign_up_screen.dart';
+import 'package:quick_buy/features/auth/presentation/screens/welcome_screen.dart';
 import 'package:quick_buy/features/auth/presentation/widgets/app_logo.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _navigateToNextScreen() async {
     await Future.delayed(Duration(seconds: 3));
     if (mounted) {
-      Navigator.pushReplacementNamed(context, SignUpScreen.name);
+      Navigator.pushReplacementNamed(context, WelcomeScreen.name);
     }
   }
 

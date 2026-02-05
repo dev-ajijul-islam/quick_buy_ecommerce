@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quick_buy/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:quick_buy/features/auth/presentation/screens/splash_screen.dart';
+import 'package:quick_buy/features/auth/presentation/screens/welcome_screen.dart';
 
 class AppRoutes {
   static Route<dynamic> routes(RouteSettings setting) {
@@ -11,6 +12,9 @@ class AppRoutes {
         break;
       case SignUpScreen.name:
         widget = SignUpScreen();
+        break;
+      case WelcomeScreen.name:
+        widget = WelcomeScreen();
         break;
     }
 
