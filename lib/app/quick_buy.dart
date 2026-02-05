@@ -3,6 +3,7 @@ import "package:flutter_localizations/flutter_localizations.dart";
 import "package:provider/provider.dart";
 import "package:quick_buy/app/app_routes.dart";
 import "package:quick_buy/app/providers/languages_provider.dart";
+import "package:quick_buy/app/providers/theme_provider.dart";
 
 import "../l10n/app_localizations.dart";
 import '../app/app_theme.dart';
@@ -15,20 +16,25 @@ class QuickBuy extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => LanguagesProvider()),
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
       ],
       child: Consumer<LanguagesProvider>(
-        builder: (_, provider, _) => MaterialApp(
-          onGenerateRoute: AppRoutes.routes,
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
-          localizationsDelegates: [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: provider.supportedLocales,
-          locale: provider.currentLanguage,
+        builder: (_, languageProvider, _) => Consumer<ThemeProvider>(
+          builder: (_, themeProvider, _) => MaterialApp(
+            onGenerateRoute: AppRoutes.routes,
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: themeProvider.themeMode,
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: languageProvider.supportedLocales,
+            locale: languageProvider.currentLanguage,
+
+          ),
         ),
       ),
     );
