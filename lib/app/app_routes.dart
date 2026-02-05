@@ -8,8 +8,6 @@ class AppRoutes {
       case "/":
         widget = const SplashScreen();
         break;
-
-
     }
 
     return MaterialPageRoute(builder: (context) => widget);
