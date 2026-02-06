@@ -4,13 +4,12 @@ import 'package:flutter/cupertino.dart';
 
 class OtpCodeProvider extends ChangeNotifier {
   OtpCodeProvider() {
-    startTimer;
+    _startTimer();
   }
 
   final int _totalDuration = 120;
   late int _remainingTime = _totalDuration;
 
-  void get startTimer => _startTimer();
   int get remainingTime => _remainingTime;
   void get resendOtp => _resendOtp();
 
@@ -27,6 +26,7 @@ class OtpCodeProvider extends ChangeNotifier {
 
   void _resendOtp() {
     _remainingTime = _totalDuration;
+    _startTimer();
     notifyListeners();
   }
 }
