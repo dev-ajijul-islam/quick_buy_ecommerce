@@ -1,37 +1,23 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:provider/provider.dart';
 import 'package:quick_buy/app/app_colors.dart';
 import 'package:quick_buy/app/extensions/utils_extension.dart';
 import 'package:quick_buy/features/auth/presentation/widgets/app_logo.dart';
+import 'package:quick_buy/features/auth/providers/otp_code_provider.dart';
 
-class OtpCodeScreen extends StatefulWidget {
-  const OtpCodeScreen({super.key});
+class OtpCodeScreen extends StatelessWidget {
+  OtpCodeScreen({super.key});
 
   static const String name = "/otp-code";
 
-  @override
-  State<OtpCodeScreen> createState() => _OtpCodeScreenState();
-}
-
-class _OtpCodeScreenState extends State<OtpCodeScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController _otpTEController = TextEditingController();
 
-
-
-  @override
-  void initState() {
-    _startTimer();
-    super.initState();
-  }
-
-
-
   @override
   Widget build(BuildContext context) {
+    final OtpCodeProvider otpCodeProvider = context.watch<OtpCodeProvider>();
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -82,21 +68,25 @@ class _OtpCodeScreenState extends State<OtpCodeScreen> {
                             ),
                           ),
                         ),
-                        RichText(
-                          text: TextSpan(
-                            text: "This code will expires in",
-                            style: .new(color: Colors.grey),
-                            children: [
-                              TextSpan(
-                                text: " $_remainingTime s",
-                                style: TextStyle(color: AppColors.themeColor),
-                              ),
-                            ],
+                        Consumer<OtpCodeProvider>(
+                          builder: (_, provider, _) => RichText(
+                            text: TextSpan(
+                              text: "This code will expires in",
+                              style: .new(color: Colors.grey),
+                              children: [
+                                TextSpan(
+                                  text: " ${provider.remainingTime}s",
+                                  style: TextStyle(color: AppColors.themeColor),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
 
                         TextButton(
-                          onPressed: _remainingTime <= 0 ? _resendOtp : null,
+                          onPressed: () => otpCodeProvider.remainingTime <= 0
+                              ? otpCodeProvider.resendOtp
+                              : null,
                           child: Text(
                             "Resend Otp",
                             style: TextStyle(color: Colors.grey),
@@ -120,12 +110,6 @@ class _OtpCodeScreenState extends State<OtpCodeScreen> {
         ),
       ),
     );
-  }
-
-  void _resendOtp() {
-    setState(() {
-      _remainingTime = _totalDuration;
-    });
   }
 
   void _onTapNextButton() {

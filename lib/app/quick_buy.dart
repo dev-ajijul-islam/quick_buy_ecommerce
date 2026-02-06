@@ -4,6 +4,7 @@ import "package:provider/provider.dart";
 import "package:quick_buy/app/app_routes.dart";
 import "package:quick_buy/app/providers/languages_provider.dart";
 import "package:quick_buy/app/providers/theme_provider.dart";
+import "package:quick_buy/features/auth/providers/otp_code_provider.dart";
 
 import "../l10n/app_localizations.dart";
 import '../app/app_theme.dart';
@@ -17,6 +18,7 @@ class QuickBuy extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => LanguagesProvider()),
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => OtpCodeProvider()),
       ],
       child: Consumer<LanguagesProvider>(
         builder: (_, languageProvider, _) => Consumer<ThemeProvider>(
@@ -33,7 +35,6 @@ class QuickBuy extends StatelessWidget {
             ],
             supportedLocales: languageProvider.supportedLocales,
             locale: languageProvider.currentLanguage,
-
           ),
         ),
       ),
