@@ -5,7 +5,6 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:quick_buy/app/app_colors.dart';
 import 'package:quick_buy/app/extensions/utils_extension.dart';
 import 'package:quick_buy/features/auth/presentation/widgets/app_logo.dart';
-import 'package:quick_buy/features/shared/utils/presentation/validator.dart';
 
 class OtpCodeScreen extends StatefulWidget {
   const OtpCodeScreen({super.key});
@@ -21,8 +20,7 @@ class _OtpCodeScreenState extends State<OtpCodeScreen> {
 
   final TextEditingController _otpTEController = TextEditingController();
 
-  final int _totalDuration = 120;
-  late int _remainingTime = _totalDuration;
+
 
   @override
   void initState() {
@@ -30,17 +28,7 @@ class _OtpCodeScreenState extends State<OtpCodeScreen> {
     super.initState();
   }
 
-  void _startTimer() {
-    Timer.periodic(Duration(seconds: 1), (timer) {
-      if (_remainingTime <= 0) {
-        timer.cancel();
-      } else {
-        setState(() {
-          _remainingTime--;
-        });
-      }
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
