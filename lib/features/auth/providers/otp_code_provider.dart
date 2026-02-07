@@ -17,11 +17,12 @@ class OtpCodeProvider extends ChangeNotifier {
       if (_remainingTime <= 0) {
         timer.cancel();
       } else {
-        _remainingTime--;
+        _remainingTime --;
         notifyListeners();
       }
     });
   }
+
 
   void _resendOtp() {
     _remainingTime = _totalDuration;
