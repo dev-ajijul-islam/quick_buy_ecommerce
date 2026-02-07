@@ -9,7 +9,6 @@ class OtpCodeProvider extends ChangeNotifier {
 
   final int _totalDuration = 120;
   late int _remainingTime = _totalDuration;
-
   int get remainingTime => _remainingTime;
   void get resendOtp => _resendOtp();
 
